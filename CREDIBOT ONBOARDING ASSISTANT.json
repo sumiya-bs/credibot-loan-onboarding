@@ -1,0 +1,1512 @@
+{
+  "name": "Onboarding Automation POC",
+  "nodes": [
+    {
+      "parameters": {
+        "public": true,
+        "initialMessages": "Welcome to CrediBot 👋\n\nYour digital assistant for quick and secure loan services.\n\nPlease type \"Hi\" to begin.",
+        "options": {
+          "allowFileUploads": true,
+          "allowedFilesMimeTypes": "pdf",
+          "responseMode": "responseNodes"
+        }
+      },
+      "type": "@n8n/n8n-nodes-langchain.chatTrigger",
+      "typeVersion": 1.4,
+      "position": [
+        -1920,
+        -512
+      ],
+      "id": "158d23a6-e807-4007-be87-d6d1f5eeb437",
+      "name": "When chat message received",
+      "webhookId": "39aaacb3-793c-4c3a-9a65-ea30beadc33b"
+    },
+    {
+      "parameters": {
+        "rules": {
+          "values": [
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 3
+                },
+                "conditions": [
+                  {
+                    "leftValue": "={{ Number($json.chatInput) }}",
+                    "rightValue": 1,
+                    "operator": {
+                      "type": "number",
+                      "operation": "equals"
+                    },
+                    "id": "3c2bf9d6-5b89-43c7-bbce-274d9906560b"
+                  }
+                ],
+                "combinator": "and"
+              }
+            },
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 3
+                },
+                "conditions": [
+                  {
+                    "id": "23214256-281f-4fc6-b4bf-1a39bfec748b",
+                    "leftValue": "={{ Number($json.chatInput) }}",
+                    "rightValue": 2,
+                    "operator": {
+                      "type": "number",
+                      "operation": "equals"
+                    }
+                  }
+                ],
+                "combinator": "and"
+              }
+            },
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 3
+                },
+                "conditions": [
+                  {
+                    "id": "14cd937c-747d-46c2-a6a5-368f0b4425c2",
+                    "leftValue": "={{ Number($json.chatInput) }}",
+                    "rightValue": 3,
+                    "operator": {
+                      "type": "number",
+                      "operation": "equals"
+                    }
+                  }
+                ],
+                "combinator": "and"
+              }
+            },
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 3
+                },
+                "conditions": [
+                  {
+                    "id": "28230e5b-9be9-44f7-81af-a7cb69c79351",
+                    "leftValue": "={{ Number($json.chatInput) }}",
+                    "rightValue": 4,
+                    "operator": {
+                      "type": "number",
+                      "operation": "equals"
+                    }
+                  }
+                ],
+                "combinator": "and"
+              }
+            },
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 3
+                },
+                "conditions": [
+                  {
+                    "id": "ab127eb8-0bff-4c6e-98d2-4482eff1ad30",
+                    "leftValue": "={{$json.chatInput}}",
+                    "rightValue": "MENU",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals"
+                    }
+                  }
+                ],
+                "combinator": "and"
+              }
+            }
+          ]
+        },
+        "options": {
+          "fallbackOutput": "extra"
+        }
+      },
+      "type": "n8n-nodes-base.switch",
+      "typeVersion": 3.4,
+      "position": [
+        -1728,
+        -512
+      ],
+      "id": "199213d1-87f1-4138-a42c-870333d46e51",
+      "name": "Switch"
+    },
+    {
+      "parameters": {
+        "operation": "sendAndWait",
+        "message": "To check your loan eligibility, please enter your details in the following format:\n\nAge, Monthly Income, Loan Amount\n\nExample:\n30, 50000, 300000\n\nBasic eligibility criteria:\n• Minimum age: 21 years\n• Minimum monthly income: ₹30,000\n• Requested loan amount should be within the eligible limit based on income",
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.chat",
+      "typeVersion": 1.2,
+      "position": [
+        -1520,
+        -992
+      ],
+      "id": "9d5836cf-50f1-4c1a-a481-7979dc655748",
+      "name": "LOAN",
+      "webhookId": "79f33387-8003-47d0-9e1f-62372787cf6c"
+    },
+    {
+      "parameters": {
+        "operation": "sendAndWait",
+        "message": "Welcome to Bank AI Assistant.\n\nPlease choose a service:Welcome to Bank AI Assistant\n\n1️⃣ Loan Eligibility Check\n2️⃣ EMI Calculator\n3️⃣ Check Loan Status\n4️⃣ Apply for Loan (Upload Documents)\n\nType the number of the service you want.",
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.chat",
+      "typeVersion": 1.2,
+      "position": [
+        -2032,
+        -960
+      ],
+      "id": "c6ce441c-cb2f-44b4-b85b-b3ffa601c997",
+      "name": "Menu",
+      "webhookId": "efed60ac-29ef-483b-9039-dc1e633f191a"
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "e226954b-ab61-4787-abf5-aeff90e1c6f7",
+              "name": "user_input",
+              "value": "={{$json.chatInput}}",
+              "type": "string"
+            },
+            {
+              "id": "aa2d7b50-de85-45da-97d6-5ca0d3560079",
+              "name": "age",
+              "value": "={{ Number($json.chatInput.split(\",\")[0]) }}",
+              "type": "number"
+            },
+            {
+              "id": "40f887f8-66be-406f-ad90-9528fbf6f5d2",
+              "name": "income",
+              "value": "={{ Number($json.chatInput.split(\",\")[1]) }}",
+              "type": "number"
+            },
+            {
+              "id": "a4d6a7c1-1fc1-45d0-ba04-9c5f562bb8a1",
+              "name": "loan_amount",
+              "value": "={{ Number($json.chatInput.split(\",\")[2]) }}",
+              "type": "number"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        -1280,
+        -992
+      ],
+      "id": "3de24b95-5d24-489d-b49a-b7f9432a42ab",
+      "name": "Edit Fields"
+    },
+    {
+      "parameters": {
+        "operation": "sendAndWait",
+        "message": "✅ Congratulations! You are eligible for the loan.\n\nOur team will contact you for further processing.\n\nType MENU to return to the main menu.\n",
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.chat",
+      "typeVersion": 1.2,
+      "position": [
+        -816,
+        -1248
+      ],
+      "id": "262f8735-6f24-4f52-972f-0a48ed11f9a4",
+      "name": "positive eligible",
+      "webhookId": "58c14d20-61cb-4ddd-ac61-c7172dec2cea"
+    },
+    {
+      "parameters": {
+        "operation": "sendAndWait",
+        "message": "=Sorry, you are currently not eligible for this loan.\n\nReason: {{ $json.Reason }}\n\nYou may review the eligibility criteria and try again.\n\nType \"MENU\" to use other services",
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.chat",
+      "typeVersion": 1.2,
+      "position": [
+        -544,
+        -1056
+      ],
+      "id": "154972f1-dbfb-463a-88e2-684037b542ce",
+      "name": "negative eligible",
+      "webhookId": "0fbee0d0-386e-45a5-836d-fe70cb75b3d6"
+    },
+    {
+      "parameters": {
+        "operation": "sendAndWait",
+        "message": "Please upload your KYC documents.\n\nRequired documents:\n• Aadhaar Card\n• PAN Card\n\nPlease upload the following documents in PDF format\n\nYou must upload 2 documents:\n\n1️⃣ PAN Card\nFile name should contain one of these words:\n• pan\n• income tax\n\nExamples:\nPAN.pdf\npan_card.pdf\nincome_tax_pan.pdf\n\n2️⃣ Aadhaar Card\nFile name should contain one of these words:\n• aadhaar\n• uidai\n• identification\n\nExamples:\naadhaar.pdf\nuidai_card.pdf\nidentification_document.pdf\n\n📌 Important Rules\n• Upload both documents together\n• File format must be PDF\n• File names must contain the keywords above\n\n⚠️ If the file names do not match these keywords, the documents may not be processed.\n",
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.chat",
+      "typeVersion": 1.2,
+      "position": [
+        -1216,
+        -240
+      ],
+      "id": "f6abc232-1764-4bc7-9767-7472c398a536",
+      "name": "APPLY LOAN",
+      "webhookId": "3f67895d-e4de-4afa-b383-80891a1e2baf"
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 3
+          },
+          "conditions": [
+            {
+              "id": "5ad9bfcb-8dbf-4bfc-9f0f-975eb5848cfa",
+              "leftValue": "={{$json.age}}",
+              "rightValue": 21,
+              "operator": {
+                "type": "number",
+                "operation": "gte"
+              }
+            },
+            {
+              "id": "6c48478b-b37f-4f7e-9331-1d31e5bbc321",
+              "leftValue": "={{$json.income}}",
+              "rightValue": 30000,
+              "operator": {
+                "type": "number",
+                "operation": "gte"
+              }
+            },
+            {
+              "id": "41121368-ecfb-4978-aae8-66fad9849393",
+              "leftValue": "={{$json.loan_amount}}",
+              "rightValue": "={{$json.income * 10}}",
+              "operator": {
+                "type": "number",
+                "operation": "lte"
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.3,
+      "position": [
+        -1040,
+        -976
+      ],
+      "id": "7b1cb3f4-9b2e-488e-bf7a-d1f9dad45f44",
+      "name": "loan eligibility check"
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "loose",
+            "version": 3
+          },
+          "conditions": [
+            {
+              "id": "92f23d6d-0565-4bd5-bdce-f0ea27034dae",
+              "leftValue": "={{ \nObject.keys($binary).length >= 2 &&\n(\n$binary.data_0.fileName.toLowerCase().includes(\"pan\") ||\n$binary.data_1.fileName.toLowerCase().includes(\"pan\") ||\n$binary.data_0.fileName.toLowerCase().includes(\"income tax\") ||\n$binary.data_1.fileName.toLowerCase().includes(\"income tax\")\n) &&\n(\n$binary.data_0.fileName.toLowerCase().includes(\"aadhaar\") ||\n$binary.data_1.fileName.toLowerCase().includes(\"aadhaar\") ||\n$binary.data_0.fileName.toLowerCase().includes(\"uidai\") ||\n$binary.data_1.fileName.toLowerCase().includes(\"uidai\") ||\n$binary.data_0.fileName.toLowerCase().includes(\"identification\") ||\n$binary.data_1.fileName.toLowerCase().includes(\"identification\")\n)\n}}",
+              "rightValue": true,
+              "operator": {
+                "type": "boolean",
+                "operation": "equals"
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "looseTypeValidation": "={{ true }}",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.3,
+      "position": [
+        -880,
+        -160
+      ],
+      "id": "1a19a008-7668-4010-96a0-b30a05881bae",
+      "name": "doc check"
+    },
+    {
+      "parameters": {
+        "promptType": "define",
+        "text": "=You will receive text extracted from PAN and Aadhaar documents.\n\nPAN Document Text:\n{{$json.pan_text}}\n\nAadhaar Document Text:\n{{$json.aadhaar_text}}\n\nPAN Number: {{$json.pan_number}}\nAadhaar Number: {{$json.aadhaar_number}}\n\nExtract the following details and return JSON only:\n\n{\n\"name\": \"\",\n\"dob\": \"\",\n\"pan_number\": \"\",\n\"aadhaar_number\": \"\"\n}\n\nRules:\n- PAN must match ^[A-Z]{5}[0-9]{4}[A-Z]$\n- Aadhaar must be exactly 12 digits\n- If something cannot be found, return \"INVALID\"\n- Output only valid JSON",
+        "options": {
+          "passthroughBinaryImages": false
+        }
+      },
+      "type": "@n8n/n8n-nodes-langchain.agent",
+      "typeVersion": 3.1,
+      "position": [
+        496,
+        -208
+      ],
+      "id": "25749894-4474-4f52-b0f2-a72c716be4a9",
+      "name": "AI Agent"
+    },
+    {
+      "parameters": {
+        "model": {
+          "__rl": true,
+          "value": "gpt-4o-mini",
+          "mode": "list",
+          "cachedResultName": "gpt-4o-mini"
+        },
+        "builtInTools": {},
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.lmChatOpenAi",
+      "typeVersion": 1.3,
+      "position": [
+        448,
+        16
+      ],
+      "id": "fb8e28c0-f7d1-4ef6-bf38-8c95ce625da0",
+      "name": "OpenAI Chat Model",
+      "credentials": {
+        "openAiApi": {
+          "id": "Uvg8KeA62tKEiuTZ",
+          "name": "n8n free OpenAI API credits"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "pdf",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.extractFromFile",
+      "typeVersion": 1.1,
+      "position": [
+        -224,
+        -304
+      ],
+      "id": "890def87-25a8-481a-9ecb-35d5ecc529f5",
+      "name": "PAN"
+    },
+    {
+      "parameters": {
+        "operation": "pdf",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.extractFromFile",
+      "typeVersion": 1.1,
+      "position": [
+        -208,
+        -64
+      ],
+      "id": "6e6d6773-eb02-42f9-ba4e-96d41ea0a82d",
+      "name": "Aadhar"
+    },
+    {
+      "parameters": {
+        "mode": "combine",
+        "combineBy": "combineByPosition",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.merge",
+      "typeVersion": 3.2,
+      "position": [
+        208,
+        -208
+      ],
+      "id": "7a16abc8-73e5-4c76-8382-9b163469f05f",
+      "name": "Merge"
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "89cff25d-dbbc-412d-a74b-561912884fb9",
+              "name": "=name",
+              "value": "={{JSON.parse($json.output.replace(/```json|```/g,\"\")).name}}",
+              "type": "string"
+            },
+            {
+              "id": "c42a0c88-84dc-4988-b65a-c78eb2249eda",
+              "name": "=dob",
+              "value": "={{JSON.parse($json.output.replace(/```json|```/g,\"\")).dob}}",
+              "type": "string"
+            },
+            {
+              "id": "b8de927a-337c-40e0-9857-f2930e0e7af8",
+              "name": "=pan_number",
+              "value": "={{JSON.parse($json.output.replace(/```json|```/g,\"\")).pan_number}}",
+              "type": "string"
+            },
+            {
+              "id": "a1e95872-1eff-49e7-b0b5-45a38bc6a1bb",
+              "name": "=aadhaar_number",
+              "value": "={{JSON.parse($json.output.replace(/```json|```/g,\"\")).aadhaar_number}}",
+              "type": "string"
+            }
+          ]
+        },
+        "includeOtherFields": true,
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        912,
+        -208
+      ],
+      "id": "52e5ceee-d670-475a-98ba-5e32501bb325",
+      "name": "o/p combine field"
+    },
+    {
+      "parameters": {
+        "operation": "sendAndWait",
+        "message": "={{ \n!/^[A-Z]{5}[0-9]{4}[A-Z]$/.test($json.pan_number) || \n!/^\\d{4}\\s?\\d{4}\\s?\\d{4}$/.test($json.aadhaar_number)\n\n? \"The uploaded documents are invalid. Please upload a valid PAN and Aadhaar card to continue.\"\n\n: `Please confirm your KYC details:\n\nName: ${$json.name}\nDOB: ${$json.dob}\nPAN: ${$json.pan_number}\nAadhaar: ${$json.aadhaar_number}\n\nType YES to confirm or NO to upload again.`\n}}",
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.chat",
+      "typeVersion": 1.2,
+      "position": [
+        1216,
+        -208
+      ],
+      "id": "4c3d194b-0b16-4d69-8952-7c18be986762",
+      "name": "confirm from user",
+      "webhookId": "ba6ff193-07e7-4bb1-ad61-2e6169069093"
+    },
+    {
+      "parameters": {
+        "rules": {
+          "values": [
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 3
+                },
+                "conditions": [
+                  {
+                    "leftValue": "={{$json.chatInput}}",
+                    "rightValue": "YES",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals"
+                    },
+                    "id": "fdd16a42-aec9-431c-a835-56185b16b445"
+                  }
+                ],
+                "combinator": "and"
+              }
+            }
+          ]
+        },
+        "options": {
+          "fallbackOutput": "extra"
+        }
+      },
+      "type": "n8n-nodes-base.switch",
+      "typeVersion": 3.4,
+      "position": [
+        1456,
+        -208
+      ],
+      "id": "6fb3960e-90e3-4c24-8d38-3a1a26aed824",
+      "name": "yes/no from user"
+    },
+    {
+      "parameters": {
+        "operation": "append",
+        "documentId": {
+          "__rl": true,
+          "value": "1JucK39-0p_7dZlQbB4MvkXTzSEQnN5mPwVZAkCQnBp0",
+          "mode": "list",
+          "cachedResultName": "LOAN APPLICATIONS",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1JucK39-0p_7dZlQbB4MvkXTzSEQnN5mPwVZAkCQnBp0/edit?usp=drivesdk"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": "gid=0",
+          "mode": "list",
+          "cachedResultName": "POSITIVE CASES",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1JucK39-0p_7dZlQbB4MvkXTzSEQnN5mPwVZAkCQnBp0/edit#gid=0"
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "NAME": "={{$json.name}}",
+            "DOB": "={{$json.dob}}",
+            "PAN": "={{$json.pan_number}}",
+            "AADHAR": "={{$json.aadhaar_number}}",
+            "TIMESTAMP": "={{$now}}",
+            "LOAN_ID": "={{$json.loan_id}}"
+          },
+          "matchingColumns": [],
+          "schema": [
+            {
+              "id": "LOAN_ID",
+              "displayName": "LOAN_ID",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "NAME",
+              "displayName": "NAME",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "DOB",
+              "displayName": "DOB",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "PAN",
+              "displayName": "PAN",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "AADHAR",
+              "displayName": "AADHAR",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "TIMESTAMP",
+              "displayName": "TIMESTAMP",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.7,
+      "position": [
+        1984,
+        -480
+      ],
+      "id": "6e9477f7-ff69-4bf9-8972-7adc656ad3d2",
+      "name": "Append row in sheet",
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "lNrW2Wkd9fS0Znwb",
+          "name": "Google Sheets account 2"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "jsCode": "const result = [];\n\nfor (const item of items) {\n  const binaries = item.binary;\n\n  for (const key of Object.keys(binaries)) {\n\n    const file = binaries[key];\n    const name = (file.fileName || \"\").toLowerCase();\n\n    let type = \"unknown\";\n\n    if (name.includes(\"income\") || name.includes(\"pan\")) {\n      type = \"pan\";\n    }\n\n    if (name.includes(\"aadhaar\") || name.includes(\"uidai\") || name.includes(\"identification\")) {\n      type = \"aadhaar\";\n    }\n\n    result.push({\n      json: { doc_type: type },\n      binary: { data: file }\n    });\n\n  }\n}\n\nreturn result;"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        -528,
+        -256
+      ],
+      "id": "ca04045a-9f2e-4ffc-b306-531c189ccefc",
+      "name": "split docs"
+    },
+    {
+      "parameters": {
+        "jsCode": "const result = [];\n\nfor (const item of items) {\n  const text = item.json.text || '';\n  const upper = text.toUpperCase();\n  const match = upper.match(/[A-Z]{5}[0-9]{4}[A-Z]/);\n\n  if (match) {\n    result.push({\n      json: {\n        pan_number: match[0],\n        pan_text: text\n      }\n    });\n  }\n}\n\nreturn result;"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        -16,
+        -304
+      ],
+      "id": "86b7afa6-9bcc-4e47-bed6-98e56369fde4",
+      "name": "filter pan"
+    },
+    {
+      "parameters": {
+        "jsCode": "const result = [];\n\nfor (const item of items) {\n  const raw = item.json.text || '';\n\n  // Match Aadhaar formats\n  let match = raw.match(/\\b\\d{4}\\s\\d{4}\\s\\d{4}\\b/);\n  if (!match) {\n    match = raw.match(/\\b\\d{12}\\b/);\n  }\n\n  if (match) {\n    const aadhaar = match[0].replace(/\\D/g, '');\n\n    result.push({\n      json: {\n        aadhaar_number: aadhaar,\n        aadhaar_text: raw\n      }\n    });\n  }\n}\n\nreturn result;"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        0,
+        -64
+      ],
+      "id": "2b0c724c-a1ab-45c3-96a5-076265d21712",
+      "name": "filter aadhar"
+    },
+    {
+      "parameters": {
+        "mode": "combine",
+        "combineBy": "combineByPosition",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.merge",
+      "typeVersion": 3.2,
+      "position": [
+        1600,
+        -512
+      ],
+      "id": "54679879-d864-4909-9fdb-17c71f837288",
+      "name": "merge_yes_with_kyc"
+    },
+    {
+      "parameters": {
+        "jsCode": "const now = new Date();\n\n// Format date YYYYMMDD\nconst datePart =\n  now.getFullYear().toString() +\n  String(now.getMonth() + 1).padStart(2, \"0\") +\n  String(now.getDate()).padStart(2, \"0\");\n\n// Random 3-digit number\nconst randomPart = Math.floor(100 + Math.random() * 900);\n\n// Loan ID\nconst loan_id = `LN${datePart}${randomPart}`;\n\nreturn [{\n  ...$json,\n  loan_id\n}];"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        1808,
+        -512
+      ],
+      "id": "867c8b81-2b4c-4868-a07c-9fd1ee99ada5",
+      "name": "generate_loan_id"
+    },
+    {
+      "parameters": {
+        "operation": "sendAndWait",
+        "message": "=Your loan application has been submitted successfully.\n\nYour Loan ID is:{{ $json.LOAN_ID }}\n\nOur team will contact you shortly for other details and documents after validating provided critical documents.\n\nType \"MENU\" to use other services or \"EXIT\"",
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.chat",
+      "typeVersion": 1.2,
+      "position": [
+        1856,
+        -176
+      ],
+      "id": "ab9f1bdc-776b-468f-865a-9d1d8bbae444",
+      "name": "success",
+      "webhookId": "d3cc5fca-a1c5-4d34-8da0-b12cdc943be8"
+    },
+    {
+      "parameters": {
+        "operation": "sendAndWait",
+        "message": "Please enter the following details for EMI calculation in this format:\n\nLoan Amount, Annual Interest Rate, Tenure in Months\n\nExample:\n500000, 10, 60\n",
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.chat",
+      "typeVersion": 1.2,
+      "position": [
+        -1488,
+        -768
+      ],
+      "id": "a08f24a0-de17-4481-9aa4-d2c4201ac87b",
+      "name": "EMI INPUTS",
+      "webhookId": "7ae94b6e-717c-4f11-ab53-a4c77be2cc39"
+    },
+    {
+      "parameters": {
+        "jsCode": "const input = items[0].json.chatInput;\n\nconst parts = input.split(\",\");\n\nconst loanAmount = parseFloat(parts[0].trim());\nconst annualRate = parseFloat(parts[1].trim());\nconst tenureMonths = parseInt(parts[2].trim(), 10);\n\nconst monthlyRate = annualRate / 12 / 100;\n\nconst emi =\n  (loanAmount * monthlyRate * Math.pow(1 + monthlyRate, tenureMonths)) /\n  (Math.pow(1 + monthlyRate, tenureMonths) - 1);\n\nreturn [\n  {\n    json: {\n      loanAmount,\n      annualRate,\n      tenureMonths,\n      emi: emi.toFixed(2)\n    }\n  }\n];"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        -1280,
+        -768
+      ],
+      "id": "ef50973b-2f73-4ad2-b426-b7b0545df0c5",
+      "name": "calculate_emi"
+    },
+    {
+      "parameters": {
+        "operation": "sendAndWait",
+        "message": "=Here are your EMI details:\n\nLoan Amount: ₹{{$json.loanAmount}}\nInterest Rate: {{$json.annualRate}}%\nTenure: {{$json.tenureMonths}} months\n\nYour Monthly EMI will be: ₹{{$json.emi}}\n\nTYPE \"MENU\" TO GO BACK TO MENU ELSE \"EXIT\"",
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.chat",
+      "typeVersion": 1.2,
+      "position": [
+        -1072,
+        -768
+      ],
+      "id": "d93ed2c3-363b-4ac7-b687-ca73415064b9",
+      "name": "EMI RESULT",
+      "webhookId": "7ef36f9e-5b2c-4f98-961e-3bbfa665ba6b"
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 3
+          },
+          "conditions": [
+            {
+              "id": "dfd79999-1d80-4e22-a3dc-5cb4c88c3df4",
+              "leftValue": "={{ $json.chatInput.trim().toUpperCase() }}",
+              "rightValue": "MENU",
+              "operator": {
+                "type": "string",
+                "operation": "equals"
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "looseTypeValidation": "={{ false }}",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.3,
+      "position": [
+        -848,
+        -800
+      ],
+      "id": "4cd83abe-b5a1-4710-a13e-540f8d9b9745",
+      "name": "If"
+    },
+    {
+      "parameters": {
+        "message": "Thank you for using CREDIBOT Smartly. Come back soon till then I will be Missing You :)\nHave a nice day !!!",
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.chat",
+      "typeVersion": 1.2,
+      "position": [
+        -592,
+        -784
+      ],
+      "id": "f9b74abd-f240-46c1-91eb-10f8d9410879",
+      "name": "EXIT",
+      "webhookId": "b3aa733b-4f81-4609-938c-b4d3b099ba7a"
+    },
+    {
+      "parameters": {
+        "operation": "sendAndWait",
+        "message": "Please enter your Loan ID to check the application status.\n\nExample:\nLN10234",
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.chat",
+      "typeVersion": 1.2,
+      "position": [
+        -1424,
+        -512
+      ],
+      "id": "8b720474-e81e-450d-8055-10216b4b4b09",
+      "name": "LOAN STATUS INPUT",
+      "webhookId": "67afba6a-5414-4e66-9556-6c0dc370c3a0"
+    },
+    {
+      "parameters": {
+        "documentId": {
+          "__rl": true,
+          "value": "1JucK39-0p_7dZlQbB4MvkXTzSEQnN5mPwVZAkCQnBp0",
+          "mode": "list",
+          "cachedResultName": "LOAN APPLICATIONS",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1JucK39-0p_7dZlQbB4MvkXTzSEQnN5mPwVZAkCQnBp0/edit?usp=drivesdk"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": "gid=0",
+          "mode": "list",
+          "cachedResultName": "POSITIVE CASES",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1JucK39-0p_7dZlQbB4MvkXTzSEQnN5mPwVZAkCQnBp0/edit#gid=0"
+        },
+        "filtersUI": {
+          "values": [
+            {
+              "lookupColumn": "LOAN_ID",
+              "lookupValue": "={{ $json.chatInput }}"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.7,
+      "position": [
+        -1216,
+        -512
+      ],
+      "id": "a368c5a1-919f-4565-ac1a-b1671ad7d8ff",
+      "name": "CHECK LOAN STATUS",
+      "alwaysOutputData": true,
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "lNrW2Wkd9fS0Znwb",
+          "name": "Google Sheets account 2"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 3
+          },
+          "conditions": [
+            {
+              "id": "bd7b2210-9158-4e5d-b225-56e48cb9b3a6",
+              "leftValue": "={{ $json.LOAN_ID }}",
+              "rightValue": 0,
+              "operator": {
+                "type": "string",
+                "operation": "notEmpty",
+                "singleValue": true
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.3,
+      "position": [
+        -1008,
+        -512
+      ],
+      "id": "1b2c9d98-59f1-4caf-8156-8cff755a579a",
+      "name": "If1"
+    },
+    {
+      "parameters": {
+        "operation": "sendAndWait",
+        "message": "=Your loan application is currently under validation.\n\nLoan ID: {{$json.LOAN_ID}}\nApplicant Name: {{$json.NAME}}\n\nOur team is reviewing your documents.\nYou will receive an update once verification is completed.\n\nType \"MENU\" to use other services",
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.chat",
+      "typeVersion": 1.2,
+      "position": [
+        -800,
+        -608
+      ],
+      "id": "e3b6e858-104d-4e8b-966b-4768b0275946",
+      "name": "application found",
+      "webhookId": "fbc806af-d57a-40c3-92e5-e9719288e877"
+    },
+    {
+      "parameters": {
+        "operation": "sendAndWait",
+        "message": "The Loan ID you entered was not found.\n\nThe application may not have been submitted or it may have been rejected.\n\nPlease verify the Loan ID and try again. Call 123456789 for more details\n\nType \"MENU\" to use other services",
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.chat",
+      "typeVersion": 1.2,
+      "position": [
+        -800,
+        -416
+      ],
+      "id": "ba6e19fc-f95f-4382-95fe-537346c47fb4",
+      "name": "no loan found",
+      "webhookId": "4b6fef10-7dd6-4c04-9b7c-222f85911f99"
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "6c30de8f-ef0f-4775-a104-71a7e31dca2e",
+              "name": "Reason",
+              "value": "={{\n$json.age < 21\n? \"Applicant must be at least 21 years old.\"\n\n: $json.income < 30000\n? \"Minimum required monthly income is ₹30,000.\"\n\n: $json.loan_amount > ($json.income * 10)\n? \"Requested loan amount exceeds the eligible limit based on your income.\"\n\n: \"The provided details do not meet the eligibility criteria.\"\n}}",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        -752,
+        -1056
+      ],
+      "id": "28c9ab39-17a9-4f70-ae01-bf6efb712deb",
+      "name": "SET_REJECTION_REASON"
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 3
+          },
+          "conditions": [
+            {
+              "id": "9dda6888-2460-4665-b307-a6ed38b33ed1",
+              "leftValue": "={{ $json.chatInput.trim().toUpperCase() }}",
+              "rightValue": "MENU",
+              "operator": {
+                "type": "string",
+                "operation": "equals",
+                "name": "filter.operator.equals"
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.3,
+      "position": [
+        2128,
+        -192
+      ],
+      "id": "af302daf-7d2e-45b7-8adf-4aac4aee21c9",
+      "name": "If2"
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "When chat message received": {
+      "main": [
+        [
+          {
+            "node": "Switch",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Switch": {
+      "main": [
+        [
+          {
+            "node": "LOAN",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "EMI INPUTS",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "LOAN STATUS INPUT",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "APPLY LOAN",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Menu",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Menu",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Menu": {
+      "main": [
+        [
+          {
+            "node": "Switch",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "LOAN": {
+      "main": [
+        [
+          {
+            "node": "Edit Fields",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Edit Fields": {
+      "main": [
+        [
+          {
+            "node": "loan eligibility check",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "positive eligible": {
+      "main": [
+        [
+          {
+            "node": "Menu",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "negative eligible": {
+      "main": [
+        [
+          {
+            "node": "Menu",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "APPLY LOAN": {
+      "main": [
+        [
+          {
+            "node": "doc check",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "loan eligibility check": {
+      "main": [
+        [
+          {
+            "node": "positive eligible",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "SET_REJECTION_REASON",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "doc check": {
+      "main": [
+        [
+          {
+            "node": "split docs",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "APPLY LOAN",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "OpenAI Chat Model": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "PAN": {
+      "main": [
+        [
+          {
+            "node": "filter pan",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Merge": {
+      "main": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Aadhar": {
+      "main": [
+        [
+          {
+            "node": "filter aadhar",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "AI Agent": {
+      "main": [
+        [
+          {
+            "node": "o/p combine field",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "o/p combine field": {
+      "main": [
+        [
+          {
+            "node": "confirm from user",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "merge_yes_with_kyc",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "confirm from user": {
+      "main": [
+        [
+          {
+            "node": "yes/no from user",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "yes/no from user": {
+      "main": [
+        [
+          {
+            "node": "merge_yes_with_kyc",
+            "type": "main",
+            "index": 1
+          }
+        ],
+        [
+          {
+            "node": "APPLY LOAN",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "split docs": {
+      "main": [
+        [
+          {
+            "node": "PAN",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "Aadhar",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "filter pan": {
+      "main": [
+        [
+          {
+            "node": "Merge",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "filter aadhar": {
+      "main": [
+        [
+          {
+            "node": "Merge",
+            "type": "main",
+            "index": 1
+          }
+        ]
+      ]
+    },
+    "merge_yes_with_kyc": {
+      "main": [
+        [
+          {
+            "node": "generate_loan_id",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "generate_loan_id": {
+      "main": [
+        [
+          {
+            "node": "Append row in sheet",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Append row in sheet": {
+      "main": [
+        [
+          {
+            "node": "success",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "EMI INPUTS": {
+      "main": [
+        [
+          {
+            "node": "calculate_emi",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "calculate_emi": {
+      "main": [
+        [
+          {
+            "node": "EMI RESULT",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "EMI RESULT": {
+      "main": [
+        [
+          {
+            "node": "If",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "If": {
+      "main": [
+        [
+          {
+            "node": "Menu",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "EXIT",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "LOAN STATUS INPUT": {
+      "main": [
+        [
+          {
+            "node": "CHECK LOAN STATUS",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "CHECK LOAN STATUS": {
+      "main": [
+        [
+          {
+            "node": "If1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "If1": {
+      "main": [
+        [
+          {
+            "node": "application found",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "no loan found",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "SET_REJECTION_REASON": {
+      "main": [
+        [
+          {
+            "node": "negative eligible",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "no loan found": {
+      "main": [
+        [
+          {
+            "node": "Menu",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "application found": {
+      "main": [
+        [
+          {
+            "node": "Menu",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "success": {
+      "main": [
+        [
+          {
+            "node": "If2",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "If2": {
+      "main": [
+        [
+          {
+            "node": "Menu",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "EXIT",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": true,
+  "settings": {
+    "executionOrder": "v1",
+    "binaryMode": "separate",
+    "availableInMCP": false
+  },
+  "versionId": "2e84f754-f6ad-4898-a99f-2d65571fdf1b",
+  "meta": {
+    "templateCredsSetupCompleted": true,
+    "instanceId": "96becff83fa126c07fac155d6608abbd78402a186625023496b0e66fd60e1279"
+  },
+  "id": "oEwj3mB0oBGdLN1k",
+  "tags": []
+}
